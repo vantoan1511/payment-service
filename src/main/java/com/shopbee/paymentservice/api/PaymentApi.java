@@ -39,7 +39,7 @@ public class PaymentApi {
 
     @POST
     @Path("/vnpay-return")
-    public Response handleVnpayReturn(@BeanParam VNPayReturn vnPayReturn) {
+    public Response handleVnpayReturn(VNPayReturn vnPayReturn) {
         return Response.ok(paymentService.handleVnpayReturn(vnPayReturn)).build();
     }
 
