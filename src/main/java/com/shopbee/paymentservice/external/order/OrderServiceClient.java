@@ -34,5 +34,5 @@ public interface OrderServiceClient {
 
     @POST
     @Path("{id}")
-    void invokeSuccessCheckout(@PathParam("id") Long id, String secureKey);
+    void invokeSuccessCheckout(@PathParam("id") Long id, @QueryParam("secureKey") String secureKey);
 }

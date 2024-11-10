@@ -39,6 +39,7 @@ public class PaymentApi {
 
     @POST
     @Path("/vnpay-return")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response handleVnpayReturn(VNPayReturn vnPayReturn) {
         return Response.ok(paymentService.handleVnpayReturn(vnPayReturn)).build();
     }

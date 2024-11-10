@@ -12,21 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class VNPayReturn {
 
-    @QueryParam("vnp_Amount")
     private String vnp_Amount;
 
-    @QueryParam("vnp_ResponseCode")
     private String vnp_ResponseCode;
 
-    @QueryParam("vnp_TransactionNo")
     private String vnp_TransactionNo;
 
-    @QueryParam("vnp_TransactionStatus")
     private String vnp_TransactionStatus;
 
-    @QueryParam("vnp_TxnRef")
     private String vnp_TxnRef;
 
-    @QueryParam("vnp_SecureHash")
     private String vnp_SecureHash;
 }
