@@ -74,8 +74,8 @@ public class PaymentService {
         }
 
         Long orderId = Long.valueOf(vnPayReturn.getVnp_TxnRef());
-        if (orderServiceClient.getOrderById(orderId) != null) {
-            throw new PaymentServiceException("Order has already checked out", Response.Status.CONFLICT);
+        if (transactionRepository.findByOrderId(orderId).isPresent()) {
+            throw new PaymentServiceException("Order has already been checked out", Response.Status.CONFLICT);
         }
 
         TransactionStatus status = TransactionStatus.fromCode(vnPayReturn.getVnp_ResponseCode());

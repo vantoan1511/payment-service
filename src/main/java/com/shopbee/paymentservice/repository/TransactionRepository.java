@@ -19,8 +19,8 @@ public class TransactionRepository implements PanacheRepository<Transaction> {
         return findAll(sort).page(pageRequest.getPage() - 1, pageRequest.getSize()).list();
     }
 
-    public List<Transaction> findByOrderId(Long orderId) {
-        return find("orderId", orderId).list();
+    public Optional<Transaction> findByOrderId(Long orderId) {
+        return find("orderId", orderId).stream().findFirst();
     }
 
     public Optional<Transaction> findByReferenceId(String referenceId) {
