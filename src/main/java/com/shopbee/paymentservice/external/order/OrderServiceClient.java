@@ -33,6 +33,10 @@ public interface OrderServiceClient {
     void updateStatus(@PathParam("id") Long id, UpdateStatusRequest updateStatusRequest);
 
     @POST
-    @Path("{id}")
+    @Path("{id}/checkout-success")
     void invokeSuccessCheckout(@PathParam("id") Long id, @QueryParam("secureKey") String secureKey);
+
+    @POST
+    @Path("{id}/checkout-fail")
+    void invokeFailureCheckout(@PathParam("id") Long id, @QueryParam("secureKey") String secureKey);
 }

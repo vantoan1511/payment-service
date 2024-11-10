@@ -86,8 +86,11 @@ public class PaymentService {
         transaction.setReferenceId(referenceId);
         transactionRepository.persist(transaction);
 
+        String secureHash = SecureKeyUtil.generateHMAC();
         if (status.equals(TransactionStatus.SUCCESS)) {
-            orderServiceClient.invokeSuccessCheckout(orderId, SecureKeyUtil.generateHMAC());
+            orderServiceClient.invokeSuccessCheckout(orderId, secureHash);
+        } else {
+            orderServiceClient.invokeFailureCheckout(orderId, secureHash);
         }
 
         return transaction;
