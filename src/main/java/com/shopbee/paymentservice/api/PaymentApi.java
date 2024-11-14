@@ -2,8 +2,10 @@ package com.shopbee.paymentservice.api;
 
 import com.shopbee.paymentservice.dto.PaymentRequest;
 import com.shopbee.paymentservice.dto.PaymentResponse;
+import com.shopbee.paymentservice.dto.SaleReportRequest;
 import com.shopbee.paymentservice.dto.VNPayReturn;
 import com.shopbee.paymentservice.impl.PaymentService;
+import com.shopbee.paymentservice.impl.ReportService;
 import com.shopbee.paymentservice.shared.page.PageRequest;
 import com.shopbee.paymentservice.shared.sort.SortCriteria;
 import io.quarkus.security.Authenticated;
@@ -20,12 +22,15 @@ public class PaymentApi {
 
     private final PaymentService paymentService;
     private final RoutingContext routingContext;
+    private final ReportService reportService;
 
     @Inject
     public PaymentApi(PaymentService paymentService,
-                      RoutingContext routingContext) {
+                      RoutingContext routingContext,
+                      ReportService reportService) {
         this.paymentService = paymentService;
         this.routingContext = routingContext;
+        this.reportService = reportService;
     }
 
     @POST
@@ -57,5 +62,12 @@ public class PaymentApi {
     @Authenticated
     public Response getTransactionById(@PathParam("id") Long id) {
         return Response.ok(paymentService.getById(id)).build();
+    }
+
+    @GET
+    @Path("report")
+    @Authenticated
+    public Response getSaleReport(@BeanParam @Valid SaleReportRequest saleReportRequest) {
+        return Response.ok(reportService.getSaleReport(saleReportRequest)).build();
     }
 }

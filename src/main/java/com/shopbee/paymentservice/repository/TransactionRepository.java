@@ -1,6 +1,7 @@
 package com.shopbee.paymentservice.repository;
 
 import com.shopbee.paymentservice.entity.Transaction;
+import com.shopbee.paymentservice.enums.TransactionStatus;
 import com.shopbee.paymentservice.shared.page.PageRequest;
 import com.shopbee.paymentservice.shared.sort.SortCriteria;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -26,4 +27,9 @@ public class TransactionRepository implements PanacheRepository<Transaction> {
     public Optional<Transaction> findByReferenceId(String referenceId) {
         return find("referenceId", referenceId).stream().findFirst();
     }
+
+    public List<Transaction> findSuccessByYear(int year) {
+        return find("status = ?1 and extract(year from createdAt) = ?2", TransactionStatus.SUCCESS, year).list();
+    }
+
 }
